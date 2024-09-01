@@ -1,0 +1,42 @@
+<div class="app-container">
+  <h1>{{ title }}</h1>
+
+  <!-- Button Group for Operations -->
+  <div class="button-group">
+    <button (click)="loadProducts()" class="btn btn-primary">Load All Products</button>
+    <button (click)="loadLimitedProducts()" class="btn btn-primary">Load Limited Products</button>
+    <button (click)="addProduct()" class="btn btn-success">Add Product</button>
+    
+    <!-- Sorting Buttons -->
+    <button (click)="sortByPrice('asc')" class="btn btn-info">Sort by Price (Low to High)</button>
+    <button (click)="sortByPrice('desc')" class="btn btn-info">Sort by Price (High to Low)</button>
+    <button (click)="sortByTitle('asc')" class="btn btn-info">Sort by Title (A to Z)</button>
+    <button (click)="sortByTitle('desc')" class="btn btn-info">Sort by Title (Z to A)</button>
+  </div>
+
+  <!-- Product List -->
+  <div class="product-list">
+    <div class="product-card" *ngFor="let product of products">
+      <img [src]="product.image" [alt]="product.title" class="product-image"/>
+      <div class="product-info">
+        <h3>{{ product.title }}</h3>
+        <p class="price">${{ product.price }}</p>
+        <p class="description">{{ product.description }}</p>
+        <button class="btn btn-primary" (click)="openModal(product)">View Details</button>
+        <button class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button>
+        <button (click)="updateProduct()" class="btn btn-warning">Update Product</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="selectedProduct" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ selectedProduct.title }}</h2>
+      <img [src]="selectedProduct.image" [alt]="selectedProduct.title" />
+      <p>{{ selectedProduct.description }}</p>
+      <p class="price">${{ selectedProduct.price }}</p>
+    </div>
+  </div>
+</div>
